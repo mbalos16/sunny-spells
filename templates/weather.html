@@ -1,0 +1,127 @@
+{%extends 'base.html'%} {% block title %}Weather and Alergies{% endblock %} {%block content %}
+
+<!-- Cover Image -->
+<div class="cover-image row flex-box" style="background-image: url({{ url_for('static', filename = 'joshua-reddekopp-7Oq9r2CiTLg-unsplash.jpg') }});" alt="Image of clouds in b&weather">
+</div>
+<!--Page title and subtitle. -->
+<div class="container">
+    <div class="row mt-3">
+        <h2>The weather for today in {{user_location}}</h2>
+        <h6>Last 24h until {{weather_date}}</h6>
+        <p> Gleaned from the Meteomatics Weather API, essential weather insights spanning the last 24-hour period are presented, ensuring well-informed adventures for all travelers.</p>
+    </div>
+</div>
+
+
+
+<!-- Weather basics. -->
+<div class="container">
+    <div class="row section">
+        <div class="col-md-3 mt-2">
+            <h3>Temperature</h3>
+            <p>Average: <strong>{{weather_df_basic["t_3m:C"].mean()|round|int}}°C</strong></p>
+            <p>Minimum: {{weather_df_basic["t_3m:C"].min()|round|int}}°C</p>
+            <p>Maximum: {{weather_df_basic["t_3m:C"].max()|round|int}}°C</p>
+            <p class = "description">Measured at a height of 3m in degrees Celsius.</p>
+
+        </div>
+        <div class="col-md-3 mt-2">
+            <h3>Precipitation</h3>
+            <p>Average: <strong>{{weather_df_basic["precip_1h:mm"].mean()|round|int}} mm</strong></p>
+            <p>Minimum: {{weather_df_basic["precip_1h:mm"].min()|round|int}} mm</p>
+            <p>Maximum: {{weather_df_basic["precip_1h:mm"].max()|round|int}} mm</p>
+            <p class = "description">Accumulation measured in millimeters over a 1-hour span.</p>
+        </div>
+        <div class="col-md-3 mt-2">
+            <h3>Humidity</h3>
+            <p>Average: <strong>{{weather_df_basic["relative_humidity_3m:p"].mean()|round|int}}%</strong></p>
+            <p>Minimum: {{weather_df_basic["relative_humidity_3m:p"].min()|round|int}}%</p>
+            <p>Maximum: {{weather_df_basic["relative_humidity_3m:p"].max()|round|int}}%</p>
+            <p class = "description">Instantaneous relative humidity at 3m, expressed as a percentage.</p>
+        </div>
+        <div class="col-md-3 mt-2">
+            <h3>Wind Speed</h3>
+            <p>Average: <strong>{{weather_df_basic["wind_speed_3m:kmh"].mean()|round|int}} km/h</strong></p>
+            <p>Minimum: {{weather_df_basic["wind_speed_3m:kmh"].min()|round|int}} km/h</p>
+            <p>Maximum: {{weather_df_basic["wind_speed_3m:kmh"].max()|round|int}} km/h</p>
+            <p class = "description">Instantaneous wind speed measured at a 3m level in km/h.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Clouds image Separator -->
+<div class="separator-image row" style="background-image: url({{ url_for('static', filename='oc-gonzalez-xg8z_KhSorQ-unsplash.jpg') }});" alt="Small trees at sunset"></div>
+
+<div class="container">
+    <div class="row section">
+        <div class="col-md-3 mt-2">
+            <h3>UV Level</h3>
+            <p>Average: <strong>{{weather_df_basic["uv:idx"].mean()}}</strong></p>
+            <p>Minimum: {{weather_df_basic["uv:idx"].min()}}</p>
+            <p>Maximum: {{weather_df_basic["uv:idx"].max()}}</p>
+            <p class = "description"> Indicates the risk of harm from unprotected sun exposure. Higher values signify greater risk. </p>
+        </div>
+        <div class="col-md-3 mt-2">
+            <h3>Sunrise Time</h3>
+            {%set sunrise = weather_df_basic["sunrise:sql"][1]%} {%set sunrise_list = sunrise|string%} {% set sunrise_splited = sunrise_list.split(" ")%}
+            <p>☀️ <strong>{{sunrise_splited[1][:5]}}</strong></p>
+            <p class = "description">Marks the moment when the upper limb of the sun just starts to appear above the horizon.</p>
+        </div>
+        <div class="col-md-3 mt-2">
+            <h3>Sunset Time</h3>
+            {%set sunset = weather_df_basic["sunset:sql"][1]%} {%set sunset_list = sunset|string%} {% set sunset_splited = sunset_list.split(" ")%}
+            <p>☀️ <strong>{{sunset_splited[1][:5]}}</strong></p>
+            <p class = "description">Denotes the time when the upper limb of the sun just disappears below the horizon.</p>
+        </div>
+        <div class="col-md-3 mt-2">
+            <h3>Dust</h3>
+            <p><strong>{{'%0.4f'|format(weather_df_basic["dust_0p03um_0p55um:ugm3"].mean()|float)}}</strong></p>
+            <p class = "description">Indicates the concentration of airborne dust particles sized between 0.03 μm and 0.55 μm, measured at the surface.</p>
+        </div>
+    </div>
+</div>
+
+<div class="separator-image row" style="background-image: url({{ url_for('static', filename = 'saad-chaudhry-YNM4KStg78I-unsplash.jpg') }});" alt = "Dandelion Flower in the wind.">
+</div>
+
+<div class="container">
+    <div class="row section">
+        <h2>Pollen Concentration</h2>
+    </div>
+    <div class="row">
+        <div class="col-md-3 mt-2">
+            <h3>Birch</h3>
+            <p>Average: <strong>{{'%0.4f'|format(weather_df_specific["birch_pollen:grainsm3"].mean()|float)}} </strong></p>
+            <p>Minimum: {{weather_df_specific["birch_pollen:grainsm3"].min()}} </p>
+            <p>Maximum: {{weather_df_specific["birch_pollen:grainsm3"].max()}} </p>
+            <p class = "description">Measures the density of birch pollen in the air in grains per cubic meter.</p>
+        </div>
+
+        <div class="col-md-3 mt-2">
+            <h3>Grass</h3>
+            <p>Average: <strong>{{weather_df_specific["grass_pollen:grainsm3"].mean()}} </strong></p>
+            <p>Minimum: {{weather_df_specific["grass_pollen:grainsm3"].min()}} </p>
+            <p>Maximum: {{weather_df_specific["grass_pollen:grainsm3"].max()}} </p>
+            <p class = "description">Indicates the volume of grass pollen in the air in grains per cubic meter.</p>
+        </div>
+
+        <div class="col-md-3 mt-2">
+            <h3>Olive</h3>
+            <p>Average: <strong>{{weather_df_specific["olive_pollen:grainsm3"].mean()}} </strong></p>
+            <p>Minimum: {{weather_df_specific["olive_pollen:grainsm3"].min()}} </p>
+            <p>Maximum: {{weather_df_specific["olive_pollen:grainsm3"].max()}} </p>
+            <p class = "description">Represents the amount of olive pollen in the air in grains per cubic meter.</p>
+
+        </div>
+        <div class="col-md-3 mt-2">
+            <h3>Ragweed</h3>
+            <p>Average: <strong>{{'%0.4f'|format(weather_df_specific["ragweed_pollen:grainsm3"].mean()|float)}} </strong></p>
+            <p>Minimum: {{weather_df_specific["ragweed_pollen:grainsm3"].min()}} </p>
+            <p>Maximum: {{weather_df_specific["ragweed_pollen:grainsm3"].max()}} </p>
+            <p class = "description">Shows the concentration of ragweed pollen in the air in grains per cubic meter.</p>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}

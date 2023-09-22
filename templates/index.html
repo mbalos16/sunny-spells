@@ -1,0 +1,17 @@
+{%extends 'base.html'%} {%from 'bootstrap5/form.html' import render_form%} {% block title %}Weather and Alergies{% endblock %} {%block content %}
+
+<!-- Cover Image -->
+<div class="cover-image row" style="background-image: url({{ url_for('static', filename = 'paul-pastourmatzis-KT3WlrL_bsg-unsplash.jpg') }});" alt="Christmas trees under mist in the mountain.">
+    <!-- <p class=" container fst-italic mt-3 text-cover"> Did you know that those fluffy cumulus clouds <br> can sometimes weigh as much as 1 million pounds!</p> -->
+</div>
+
+<div class="container">
+    <!-- <h4 class="text-left pt-5 pb-5 fst-italic"> Experience a brighter outlook on life with us, finding joy even on rainy days. </h4> -->
+    <div class = "mt-5">
+        <h2>What destination is on your horizon for discovery right now?</h2>
+        <form class="mb-5 mt-5" method="POST" action="/">
+            {{render_form(form)}}
+        </form>
+    </div>
+</div>
+{% endblock %}

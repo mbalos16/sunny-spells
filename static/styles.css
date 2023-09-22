@@ -1,0 +1,108 @@
+:root {
+    --primary-color: #2C3E50;
+    --secondary-color: #4F709C;
+    --background-color: #F0F0F0;
+    --button-color: #141E46;
+    --text-color: #ECF0F1; 
+    --font-base: 'Roboto', sans-serif;
+    --font-title: 'Baloo Bhaina 2', cursive;
+    --font-secondary: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    --base-font-size: 16px;
+    --line-height: 1.6;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    color: var(--primary-color);
+    font-family: var(--font-base);
+    font-size: var(--base-font-size);
+    line-height: var(--line-height);
+    background-color: var(--background-color);
+}
+
+.separator-image, .cover-image {
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.cover-image {
+    display: flex;
+    align-content: end;
+    height: 400px;
+}
+
+.separator-image {
+    height: 200px;
+}
+
+.section{
+    padding-top: 2rem;
+    margin-bottom: 30px;
+}
+
+.text-cover {
+    display: flex;
+    color: var(--text-color);
+    font-family: var(--font-secondary);
+    padding-left: 4rem;
+}
+
+.navbar-color {
+    background-color: var(--secondary-color);
+}
+
+.navbar-brand {
+    color: var(--text-color);
+}
+
+.footer {
+    margin-top: 10rem;
+}
+
+.button {
+    background-color: var(--primary-color);
+}
+
+p{
+    margin: 0 0 3px;
+}
+
+h2 {
+    font-family: var(--font-title);
+    font-size: 3rem;
+    color: #333;
+}
+
+h6, p {
+    margin: 0.5rem 0;
+}
+
+.navbar-brand:hover {
+    color: #B0C4DE;
+}
+
+
+#footer{
+    margin-top: auto;
+}
+
+#submit{
+    background-color: var(--button-color);
+    border-color: var(--button-color);
+}
+
+#submit:hover{
+    background-color: var(--secondary-color);
+    border-color: var(--button-color);
+}
+
+.description{
+    color: rgb(157, 155, 155);
+
+}

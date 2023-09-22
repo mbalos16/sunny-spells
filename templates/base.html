@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% block head %}
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" /> {% block styles %}
+    <!-- Bootstrap CSS -->
+    {{ bootstrap.load_css() }} {% endblock %}
+    <link href="{{url_for('static', filename='styles.css')}}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaina+2:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>Sunny Spells</title>
+    <link rel="icon" href="{{url_for('static', filename ='sun-free-svg-file-twtws7.svg') }} "> 
+    {% endblock %}
+</head>
+
+<body>
+    <!-- Navbar -->
+    <div class="navbar-color">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg shadow-5-strong">
+                <!-- Container wrapper -->
+                <div class="container-fluid">
+                    <!-- Navbar brand -->
+                    <a class="navbar-brand" href="">
+                        <img src="{{ url_for('static', filename ='sun-free-svg-file-twtws7.svg') }}" width="40" height="40" class="d-inline-block align-center" alt="logo" /> Sunny Spells
+                    </a>
+
+                    <!-- Toggle button -->
+                    <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+
+    <!-- Your page content -->
+
+    {% block content %}{% endblock %}
+
+    <footer id="footer">
+        <div class="text-center text-dark base-footer p-3"> © {{date}} Copyright: <a class="text-dark" href="https://mariabalos.art/">Maria Balos</a>
+        </div>
+    </footer>
+
+    {% block scripts %}
+    <!-- Optional JavaScript -->
+    {{ bootstrap.load_js() }} {% endblock %}
+
+</body>
+</html>
